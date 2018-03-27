@@ -23,7 +23,7 @@ public class EnvironmentProperties {
 
     public static String getProperty(String propertyName) {
         if (prop == null) {
-            init("config.propeties");
+            init("src/test/resources/properties/instance.properties");
         }
         return prop.getProperty(propertyName);
     }

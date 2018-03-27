@@ -6,39 +6,41 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import driver.propeprties.BrowserTypes;
-import com.DriverFactory;
-import driver.WebDriverSingleton;
+import driver.ApplicationManager;
+import pages.HomePage;
+import pages.LoginPage;
+import sun.rmi.runtime.Log;
 
 public class StepDefinitions {
-    public WebDriverSingleton driver = null;
+    protected ApplicationManager app;
 
     @Before
     public void setUp() {
+        app = new ApplicationManager();
+        ApplicationManager.getThreadApplicationManager().set(app);
+
     }
 
     @When("^I login as \"([^\"]*)\"$")
-    public void iLoginAsAdmin(String role) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    public void iLoginAsAdmin(String role) {
+        LoginPage loginPage = new LoginPage();
     }
 
     @Then("^HomePage avaliable$")
-    public void homepageAvaliable() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    public void homepageAvaliable() {
+        HomePage homePage = new HomePage();
     }
 
     @Given("^In \"([^\"]*)\" browser in session '(\\d+)'$")
-    public void inChromeBrowserInSession(BrowserTypes browserTypes, int session) throws Throwable {
-        driver = DriverFactory.getDriverInstance(browserTypes, 1);
-        driver.get("i.ua");
+    public void inChromeBrowserInSession(String browserType, int session) {
+        app.setUpPropeties(browserType);
+        app = ApplicationManager.getInstance();
     }
 
 
     @After
     public void closeBrowser() {
-        driver.quit();
+        app.getWebDriverSingleton().getDriver().quit();
     }
 
 }
