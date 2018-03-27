@@ -1,11 +1,21 @@
 package stepdefs;
 
 import cucumber.api.PendingException;
+import cucumber.api.java.After;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import driver.propeprties.BrowserTypes;
+import com.DriverFactory;
+import driver.WebDriverSingleton;
 
-public class StepDefinitions extends Hooks {
+public class StepDefinitions {
+    public WebDriverSingleton driver = null;
+
+    @Before
+    public void setUp() {
+    }
 
     @When("^I login as \"([^\"]*)\"$")
     public void iLoginAsAdmin(String role) throws Throwable {
@@ -20,9 +30,15 @@ public class StepDefinitions extends Hooks {
     }
 
     @Given("^In \"([^\"]*)\" browser in session '(\\d+)'$")
-    public void inChromeBrowserInSession(String browser, int session) throws Throwable {
-        // getDriverInstance(browser,session);
-        driver.navigate().to("http://www.i.ua/");
+    public void inChromeBrowserInSession(BrowserTypes browserTypes, int session) throws Throwable {
+        driver = DriverFactory.getDriverInstance(browserTypes, 1);
+        driver.get("i.ua");
+    }
+
+
+    @After
+    public void closeBrowser() {
+        driver.quit();
     }
 
 }

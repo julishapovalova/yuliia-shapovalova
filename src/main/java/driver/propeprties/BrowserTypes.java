@@ -1,4 +1,6 @@
-public enum BROWSER {
+package driver.propeprties;
+
+public enum BrowserTypes {
     CHROME,
     FIREFOX,
     IE,

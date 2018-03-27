@@ -1,23 +1,15 @@
-package stepdefs;
-
-import cucumber.api.java.After;
-import cucumber.api.java.Before;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+package driver;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class Hooks {
-    public WebDriver driver;
+public class PropetyReader {
     Properties properties = new Properties();
     InputStream input = null;
 
-    public Hooks() {
-        driver = null;
-
+    public PropetyReader() throws IOException {
         try {
             input = new FileInputStream("config.properties");
             properties.load(input);
@@ -25,6 +17,8 @@ public class Hooks {
             System.out.println(properties.getProperty("timeout"));
             System.out.println(properties.getProperty("email"));
             System.out.println(properties.getProperty("password"));
+            System.out.println(properties.getProperty("os"));
+            System.out.println(properties.getProperty("url"));
         } catch (IOException ex) {
             ex.printStackTrace();
         } finally {
@@ -36,6 +30,5 @@ public class Hooks {
                 }
             }
         }
-
     }
 }
