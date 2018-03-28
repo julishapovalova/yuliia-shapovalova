@@ -44,8 +44,11 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.21.0</version>
                 <configuration>
-                    <!--<parallel>methods</parallel>-->
-                    <!--<threadCount>10</threadCount>-->
+                    <includes>
+                        <include>TestRunner.java</include>
+                    </includes>
+                    <parallel>classes</parallel>
+                    <threadCount>2</threadCount>
                 </configuration>
             </plugin>
         </plugins>
