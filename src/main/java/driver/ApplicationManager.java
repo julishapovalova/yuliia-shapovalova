@@ -1,11 +1,6 @@
 package driver;
 
-import driver.propeprties.BrowserTypes;
 import driver.tech_driver.WebDriverSingleton;
-
-import java.util.ListIterator;
-
-import static driver.propeprties.BrowserTypes.FIREFOX;
 
 public class ApplicationManager {
 
