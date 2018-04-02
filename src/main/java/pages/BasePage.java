@@ -1,31 +1,28 @@
 package pages;
 
-import driver.ApplicationManager;
+import driver.Driver;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BasePage {
 
+    public WebDriver driver;
+    public WebDriverWait wait;
 
-    protected ApplicationManager manager;
-    private WebDriver driver;
-
-
-    public BasePage(ApplicationManager manager) {
-        this.manager = manager;
-        driver = manager.getWebDriverSingleton().getDriver();
-    }
-
-    public WebDriver getDriver() {
-        return driver;
+    public BasePage(Driver driver) {
+        this.driver = driver.getDriver();
+        wait = driver.wait;
+        PageFactory.initElements(this.driver, this);
     }
 
     public BasePage open() {
-
-        return new BasePage(manager);
+        return this;
     }
 
-    public boolean checkIsOpened(String title) {
-
-        return driver.getTitle().equals(title);
+    public boolean checkIsOpen(String expectedTitle) {
+        return driver.getTitle().contains(expectedTitle);
     }
+
 }
+

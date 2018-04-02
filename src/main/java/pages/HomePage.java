@@ -1,9 +1,9 @@
 package pages;
 
-import driver.ApplicationManager;
+import driver.DriverFactory;
 
 public class HomePage extends BasePage {
     public HomePage() {
-        super(ApplicationManager.getInstance());
+        super(DriverFactory.getInstance());
     }
 }

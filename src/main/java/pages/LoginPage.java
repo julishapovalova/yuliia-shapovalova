@@ -1,14 +1,14 @@
 package pages;
 
-import driver.ApplicationManager;
+import driver.DriverFactory;
 
 public class LoginPage extends BasePage {
 
     public LoginPage() {
-        super(ApplicationManager.getInstance());
+        super(DriverFactory.getInstance());
     }
 
     public LoginPage open() {
-        return new LoginPage();
+        return this;
     }
 }
