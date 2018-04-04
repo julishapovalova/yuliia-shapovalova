@@ -7,17 +7,17 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
-public class ChromeDriver extends Driver {
+public class EdgeDriver extends Driver {
+
     private DesiredCapabilities capabilities;
 
-    ChromeDriver(int session) {
+    EdgeDriver(int session) {
         initChrome();
         System.out.println("Init Chrome browser session " + session);
     }
 
-    ChromeDriver() {
+    EdgeDriver() {
         initChrome();
-        webDriverStatred();
     }
 
     @Override
@@ -25,16 +25,15 @@ public class ChromeDriver extends Driver {
         return driver;
     }
 
-
     private void initChrome() {
-        long implicitlyWait = Long.valueOf(EnvironmentProperties.getProperty("implicitly_Wait_CHROME"));
+        long implicitlyWait = Long.valueOf(EnvironmentProperties.getProperty("implicitly_Wait_EDGE"));
         long pageLoadTimeout = Long.valueOf(EnvironmentProperties.getProperty("page_Load_Timeout"));
-        long explicityWait = Long.valueOf(EnvironmentProperties.getProperty("explicity_Wait_CHROME"));
+        long explicityWait = Long.valueOf(EnvironmentProperties.getProperty("explicity_Wait_EDGE"));
         String url=EnvironmentProperties.getProperty("URL");
 
         capabilities = DesiredCapabilities.chrome();
-        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
-        driver = new org.openqa.selenium.chrome.ChromeDriver();
+        System.setProperty("webdriver.edge.driver", "src/main/resources/MicrosoftWebDriver.exe");
+        driver = new org.openqa.selenium.edge.EdgeDriver();
 
         driver.manage().timeouts().implicitlyWait(implicitlyWait, TimeUnit.SECONDS);
         driver.manage().timeouts().pageLoadTimeout(pageLoadTimeout, TimeUnit.SECONDS);
@@ -43,6 +42,5 @@ public class ChromeDriver extends Driver {
 
         driver.manage().window().maximize();
         driver.get(url);
-
     }
 }

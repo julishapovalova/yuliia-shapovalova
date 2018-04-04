@@ -11,7 +11,6 @@ import java.util.concurrent.TimeUnit;
 
 public class FireFoxDriver extends Driver {
 
-    private WebDriver driver;
     private DesiredCapabilities capabilities;
 
     FireFoxDriver(int session) {
@@ -29,9 +28,6 @@ public class FireFoxDriver extends Driver {
         return driver;
     }
 
-    public void close() {
-        driver.quit();
-    }
 
     private void initFireFox() {
         long implicitlyWait = Long.valueOf(EnvironmentProperties.getProperty("implicitly_Wait_FIREFOX"));
