@@ -2,6 +2,7 @@ package driver;
 
 import driver.propeprties.EnvironmentProperties;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -27,17 +28,16 @@ public class ChromeDriver extends Driver {
 
 
     private void initChrome() {
-        long implicitlyWait = Long.valueOf(EnvironmentProperties.getProperty("implicitly_Wait_CHROME"));
-        long pageLoadTimeout = Long.valueOf(EnvironmentProperties.getProperty("page_Load_Timeout"));
         long explicityWait = Long.valueOf(EnvironmentProperties.getProperty("explicity_Wait_CHROME"));
         String url=EnvironmentProperties.getProperty("URL");
 
         capabilities = DesiredCapabilities.chrome();
+        capabilities.setCapability(CapabilityType.PAGE_LOAD_STRATEGY, "none");
+
         System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
         driver = new org.openqa.selenium.chrome.ChromeDriver();
 
-        driver.manage().timeouts().implicitlyWait(implicitlyWait, TimeUnit.SECONDS);
-        driver.manage().timeouts().pageLoadTimeout(pageLoadTimeout, TimeUnit.SECONDS);
+
 
         wait = new WebDriverWait(driver, explicityWait);
 

@@ -7,5 +7,3 @@ Feature: feature name
     Given In "CHROME" browser in session '001'
     When I login as "Yuliia"
     Then HomePage avaliable
-
-    Given In "EDGE" browser in session '0021'
