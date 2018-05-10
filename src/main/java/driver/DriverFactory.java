@@ -2,10 +2,12 @@ package driver;
 
 import driver.propeprties.BrowserTypes;
 import driver.propeprties.EnvironmentProperties;
+import org.openqa.selenium.WebDriver;
 
 public class DriverFactory {
 
     private static final ThreadLocal<Driver> DRIVER = new ThreadLocal<Driver>();
+
     public static synchronized Driver getInstance() {
         if (DRIVER.get() == null) {
             switch (BrowserTypes.valueOf(EnvironmentProperties.getProperty("browser"))) {

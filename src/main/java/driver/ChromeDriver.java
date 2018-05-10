@@ -19,6 +19,7 @@ public class ChromeDriver extends Driver {
     ChromeDriver() {
         initChrome();
         webDriverStatred();
+
     }
 
     @Override
@@ -26,9 +27,7 @@ public class ChromeDriver extends Driver {
         return driver;
     }
 
-
     private void initChrome() {
-        long explicityWait = Long.valueOf(EnvironmentProperties.getProperty("explicity_Wait_CHROME"));
         String url=EnvironmentProperties.getProperty("URL");
 
         capabilities = DesiredCapabilities.chrome();
@@ -36,13 +35,11 @@ public class ChromeDriver extends Driver {
 
         System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
         driver = new org.openqa.selenium.chrome.ChromeDriver();
+        driver.manage().timeouts().setScriptTimeout(5, TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
-
-
-        wait = new WebDriverWait(driver, explicityWait);
-
-        driver.manage().window().maximize();
-        driver.get(url);
-
+        wrapperWebDriver=new WrapperWebDriver(driver);
+        wrapperWebDriver.get(url);
     }
 }
