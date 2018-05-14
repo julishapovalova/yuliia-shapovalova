@@ -26,12 +26,12 @@ public class DriverFactory {
     }
 
     public static void removeDriver() {
-        DRIVER.get().close();
+        DRIVER.get().wrapperWebDriver.quit();
         DRIVER.remove();
     }
 
     public static void refresh() {
-        DRIVER.get().refresh();
+        DRIVER.get().wrapperWebDriver.refresh();
     }
 
 }

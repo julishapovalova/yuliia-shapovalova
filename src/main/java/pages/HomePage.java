@@ -24,13 +24,16 @@ public class HomePage extends BasePage {
     }
 
     public MailPage login() {
-        emailInput.sendKeys(EnvironmentProperties.getProperty("email"));
-        passwordInput.sendKeys(EnvironmentProperties.getProperty("password"));
-        loginButton.click();
+        elementWrapper.sendKeys(emailInput, EnvironmentProperties.getProperty("email"));
+        elementWrapper.sendKeys(passwordInput, EnvironmentProperties.getProperty("password"));
+        elementWrapper.click(loginButton);
+//        emailInput.sendKeys(EnvironmentProperties.getProperty("email"));
+//        passwordInput.sendKeys(EnvironmentProperties.getProperty("password"));
+//        loginButton.click();
         return new MailPage();
     }
 
     public String getUserName() {
-        return usernameLabel.getText();
+        return elementWrapper.getText(usernameLabel);
     }
 }

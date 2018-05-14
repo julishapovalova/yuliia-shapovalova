@@ -16,11 +16,11 @@ public class MailPage extends BasePage {
     }
 
     public String getUserName() {
-        return usernameLabel.getText();
+        return elementWrapper.getText(usernameLabel);
     }
 
     public HomePage goToHomePage(){
-        logoImage.click();
+        elementWrapper.click(logoImage);
         return new HomePage();
     }
 }

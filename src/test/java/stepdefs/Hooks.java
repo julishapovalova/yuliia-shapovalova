@@ -13,6 +13,6 @@ public class Hooks extends DriverFactory {
 
     @After
     public void tearDownScenario() {
-        refresh();
+        removeDriver();
     }
 }

@@ -10,6 +10,7 @@ import org.openqa.selenium.TimeoutException;
 
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 class WrapperWebDriver implements WebDriver {
     private WebDriver driver;
@@ -17,7 +18,15 @@ class WrapperWebDriver implements WebDriver {
 
     WrapperWebDriver(WebDriver driver) {
         this.driver = driver;
-        wait = new WebDriverWait(this.driver, Long.valueOf(EnvironmentProperties.getProperty("explicity_Wait_CHROME")));
+
+        long implicitlyWait = Long.valueOf(EnvironmentProperties.getProperty("implicitly_Wait_FIREFOX"));
+        long pageLoadTimeout = Long.valueOf(EnvironmentProperties.getProperty("page_Load_Timeout"));
+
+        wait = new WebDriverWait(this.driver, Long.valueOf(EnvironmentProperties.getProperty("implicitly_Wait_FIREFOX")));
+        driver.manage().timeouts().pageLoadTimeout(pageLoadTimeout, TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(implicitlyWait, TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(implicitlyWait, TimeUnit.SECONDS);
+
     }
 
     public void get(String url) {
@@ -30,6 +39,9 @@ class WrapperWebDriver implements WebDriver {
         }
     }
 
+    public void refresh() {
+        driver.navigate().refresh();
+    }
 
     public String getCurrentUrl() {
         return driver.getCurrentUrl();
@@ -52,11 +64,12 @@ class WrapperWebDriver implements WebDriver {
     }
 
     public void close() {
-
+        driver.close();
     }
 
     public void quit() {
-
+        driver.manage().deleteAllCookies();
+        driver.quit();
     }
 
     public Set<String> getWindowHandles() {

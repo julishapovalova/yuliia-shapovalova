@@ -9,15 +9,14 @@ public abstract class Driver {
     public WebDriverWait wait;
     protected WebDriver driver;
     protected WrapperWebDriver wrapperWebDriver;
-    public abstract WebDriver getDriver();
+
+    public WebDriver getDriver() {
+        return driver;
+    }
 
     public void webDriverStatred() {
         Assert.assertTrue("Browser started", getDriver().getCurrentUrl().contains(EnvironmentProperties.getProperty("URL")));
     }
 
-    public void refresh() {
-        getDriver().navigate().refresh();
-    }
 
-    public abstract void close();
 }

@@ -9,10 +9,13 @@ public class BasePage {
 
     public WebDriver driver;
     public WebDriverWait wait;
+    protected PageElementWrapper elementWrapper;
 
     public BasePage(Driver driver) {
         this.driver = driver.getDriver();
         wait = driver.wait;
+        elementWrapper=new PageElementWrapper(driver.getDriver());
+
         PageFactory.initElements(this.driver, this);
     }
 
