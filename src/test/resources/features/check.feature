@@ -5,5 +5,5 @@ Feature: feature name
 
   Scenario: Initiate instance for test
     Given In "CHROME" browser in session '001'
-    When I login as "Admin"
+    When I login as "Yuliia"
     Then HomePage avaliable

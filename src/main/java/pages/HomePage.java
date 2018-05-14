@@ -1,9 +1,39 @@
 package pages;
 
-import driver.ApplicationManager;
+import driver.DriverFactory;
+import driver.propeprties.EnvironmentProperties;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 public class HomePage extends BasePage {
+
+    @FindBy(xpath = "//*[@name='login']")
+    private WebElement emailInput;
+
+    @FindBy(xpath = "//*[@name='pass']")
+    private WebElement passwordInput;
+
+    @FindBy(xpath = "//form[@name='lform']/p/input")
+    private WebElement loginButton;
+
+    @FindBy(xpath = "li[class=first] b")
+    private WebElement usernameLabel;
+
     public HomePage() {
-        super(ApplicationManager.getInstance());
+        super(DriverFactory.getInstance());
+    }
+
+    public MailPage login() {
+        elementWrapper.sendKeys(emailInput, EnvironmentProperties.getProperty("email"));
+        elementWrapper.sendKeys(passwordInput, EnvironmentProperties.getProperty("password"));
+        elementWrapper.click(loginButton);
+//        emailInput.sendKeys(EnvironmentProperties.getProperty("email"));
+//        passwordInput.sendKeys(EnvironmentProperties.getProperty("password"));
+//        loginButton.click();
+        return new MailPage();
+    }
+
+    public String getUserName() {
+        return elementWrapper.getText(usernameLabel);
     }
 }

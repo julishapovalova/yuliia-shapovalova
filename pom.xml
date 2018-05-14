@@ -36,6 +36,19 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>2.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>
@@ -45,10 +58,10 @@
                 <version>2.21.0</version>
                 <configuration>
                     <includes>
-                        <include>TestRunner.java</include>
+                        <include>src/test/java/TestRunner.java</include>
                     </includes>
-                    <parallel>classes</parallel>
-                    <threadCount>2</threadCount>
+                    <!--<parallel>methods</parallel>-->
+                    <!--<threadCount>10</threadCount>-->
                 </configuration>
             </plugin>
         </plugins>

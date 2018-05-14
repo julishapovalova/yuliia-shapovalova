@@ -5,8 +5,10 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 @CucumberOptions(
         features = "src/test/resources/features",
-        dryRun = false,
+        dryRun = false, //запусе туестов без имплементированных
         monochrome = true
+    //    tags = {"~@ignore, @InDev"}
+
 )
 public class TestRunner {
 }
