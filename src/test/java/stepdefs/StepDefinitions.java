@@ -3,32 +3,34 @@ package stepdefs;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import driver.Driver;
 import driver.DriverFactory;
+import driver.configuration.DriverHolder;
 import driver.propeprties.BrowserTypes;
 import org.junit.Assert;
 import pages.HomePage;
 import pages.MailPage;
 
-public class StepDefinitions extends DriverFactory {
+public class StepDefinitions extends BaseSteps {
+    MailPage mailPage;
 
     @When("^I login as \"([^\"]*)\"$")
     public void iLoginAsAdmin(String USER) {
-        MailPage mailPage = new HomePage().login();
+        HomePage homePage = HomePage.open();
+
+        mailPage = homePage.login();
 
         Assert.assertEquals(mailPage.getUserName(), USER);
-
-        mailPage.goToHomePage();
     }
 
     @Then("^HomePage avaliable$")
     public void homepageAvaliable() {
-
-        HomePage homePage = new HomePage();
+        mailPage.goToHomePage();
     }
 
     @Given("^In \"([^\"]*)\" browser in session '(\\d+)'$")
     public void inChromeBrowserInSession(BrowserTypes browserType, int session) {
-        getInstance();
+        DriverHolder.getInstance();
     }
 
 }

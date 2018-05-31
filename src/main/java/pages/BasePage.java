@@ -1,26 +1,15 @@
 package pages;
 
-import driver.Driver;
+import driver.configuration.WrapperWebDriver;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class BasePage {
+public abstract class BasePage {
 
-    public WebDriver driver;
-    public WebDriverWait wait;
-    protected PageElementWrapper elementWrapper;
-
-    public BasePage(Driver driver) {
-        this.driver = driver.getDriver();
-        wait = driver.wait;
-        elementWrapper=new PageElementWrapper(driver.getDriver());
-
-        PageFactory.initElements(this.driver, this);
-    }
-
-    public BasePage open() {
-        return this;
+    protected WebDriver driver;
+    public BasePage(WrapperWebDriver wrapperWebDriver) {
+        this.driver = wrapperWebDriver.getDriver();
+        PageFactory.initElements(driver, this);
     }
 
     public boolean checkIsOpen(String expectedTitle) {

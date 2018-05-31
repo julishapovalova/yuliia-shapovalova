@@ -1,6 +1,9 @@
 package pages;
 
 import driver.DriverFactory;
+import driver.configuration.DriverHolder;
+import driver.configuration.WrapperWebDriver;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -12,15 +15,15 @@ public class MailPage extends BasePage {
     private WebElement logoImage;
 
     public MailPage() {
-        super(DriverFactory.getInstance());
+        super((WrapperWebDriver) DriverHolder.getInstance());
     }
 
     public String getUserName() {
-        return elementWrapper.getText(usernameLabel);
+        return usernameLabel.getText();
     }
 
-    public HomePage goToHomePage(){
-        elementWrapper.click(logoImage);
+    public HomePage goToHomePage() {
+        logoImage.click();
         return new HomePage();
     }
 }

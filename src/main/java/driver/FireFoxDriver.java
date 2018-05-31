@@ -32,7 +32,7 @@ public class FireFoxDriver extends Driver {
         capabilities.setCapability(CapabilityType.PAGE_LOAD_STRATEGY, "eager");
         WebDriverManager.firefoxdriver().setup();
         driver = new FirefoxDriver();
-        wrapperWebDriver = new WrapperWebDriver(driver);
+        wrapperWebDriver = new WrapperWebDriverOld(driver);
 
         driver.manage().window().maximize();
 

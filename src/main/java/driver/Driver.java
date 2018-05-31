@@ -8,7 +8,7 @@ import org.junit.Assert;
 public abstract class Driver {
     public WebDriverWait wait;
     protected WebDriver driver;
-    protected WrapperWebDriver wrapperWebDriver;
+    protected WrapperWebDriverOld wrapperWebDriver;
 
     public WebDriver getDriver() {
         return driver;

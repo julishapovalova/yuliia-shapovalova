@@ -33,7 +33,7 @@ public class EdgeDriver extends Driver {
         capabilities.setCapability(CapabilityType.PAGE_LOAD_STRATEGY, "eager");
         WebDriverManager.edgedriver().setup();
         driver = new org.openqa.selenium.edge.EdgeDriver();
-        wrapperWebDriver = new WrapperWebDriver(driver);
+        wrapperWebDriver = new WrapperWebDriverOld(driver);
 
         driver.manage().window().maximize();
         driver.get(url);

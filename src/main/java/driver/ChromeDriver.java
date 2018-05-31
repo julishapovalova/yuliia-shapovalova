@@ -36,7 +36,7 @@ public class ChromeDriver extends Driver {
         capabilities.setCapability(CapabilityType.PAGE_LOAD_STRATEGY, "eager");
         WebDriverManager.chromedriver().setup();
         driver = new org.openqa.selenium.chrome.ChromeDriver(option);
-        wrapperWebDriver = new WrapperWebDriver(driver);
+        wrapperWebDriver = new WrapperWebDriverOld(driver);
 
         driver.manage().window().maximize();
         wrapperWebDriver.get(url);
