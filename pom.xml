@@ -8,6 +8,17 @@
     <artifactId>demo.i.ua</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <encoding>UTF-8</encoding>
+        <maven.failsafe.plugin.version>2.20.1</maven.failsafe.plugin.version>
+        <cucable-parralel-plugin.version>0.1.9</cucable-parralel-plugin.version>
+        <generated.runner.directory>${project.build.directory}/parallel/runners</generated.runner.directory>
+        <generated.feature.directory>${project.build.directory}/parallel/features</generated.feature.directory>
+        <aspectj.version>1.8.10</aspectj.version>
+
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
@@ -43,12 +54,6 @@
             <version>2.1.0</version>
         </dependency>
 
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>RELEASE</version>
-            <scope>compile</scope>
-        </dependency>
 
         <dependency>
             <groupId>com.browserstack</groupId>
@@ -57,37 +62,115 @@
         </dependency>
 
         <dependency>
-            <groupId>com.epam.reportportal</groupId>
-            <artifactId>logger-java-logback</artifactId>
-            <version>4.0.0</version>
-        </dependency>
-
-        <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.2.3</version>
         </dependency>
+
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-cucumber-jvm</artifactId>
+            <version>2.0-BETA16</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
+
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.21.0</version>
+                <groupId>com.trivago.rta</groupId>
+                <artifactId>cucable-plugin</artifactId>
+                <version>${cucable-parralel-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>generate-test-resources</id>
+                        <phase>generate-test-resources</phase>
+                        <goals>
+                            <goal>parallel</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
-                    <includes>
-                        <include>src/test/java/TestRunner.java</include>
-                    </includes>
-                    <!--<parallel>methods</parallel>-->
-                    <!--<threadCount>10</threadCount>-->
+                    <!-- This can be either a Java class file or a text based template -->
+                    <!--<sourceRunnerTemplateFile>src/test/java/some/template/CucableJavaTemplate.java</sourceRunnerTemplateFile>-->
+                    <sourceRunnerTemplateFile>src/test/resources/properties/TemplateRunner.java
+                    </sourceRunnerTemplateFile>
+
+                    <!-- process all features in the given directory -->
+                    <sourceFeatures>src/test/resources/features</sourceFeatures>
+
+                    <!-- process a specific file in the given directory -->
+                    <!--<sourceFeatures>src/test/resources/features/testfeature/MyTest1.feature</sourceFeatures>-->
+
+                    <!-- process a specific file and specific line numbers in the given directory -->
+                    <!--<sourceFeatures>src/test/resources/features/testfeature/MyTest1.feature:8:19</sourceFeatures>-->
+
+                    <!-- include scenarios with certain tags -->
+                    <includeScenarioTags>
+                        <param>@login</param>
+                        <!--<param>@scenarioTag2</param>-->
+                    </includeScenarioTags>
+
+                    <!-- exclude scenarios with certain tags -->
+                    <!--<excludeScenarioTags>-->
+                    <!--<param>@skipme</param>-->
+                    <!--</excludeScenarioTags>-->
+
+                    <generatedFeatureDirectory>${generated.feature.directory}</generatedFeatureDirectory>
+                    <generatedRunnerDirectory>${generated.runner.directory}</generatedRunnerDirectory>
+                    <numberOfTestRuns>1</numberOfTestRuns>
+
+                    <!-- Logging -->
+                    <logLevel>default</logLevel>
+                    <!--<logLevel>compact</logLevel>-->
+                    <!--<logLevel>minimal</logLevel>-->
+                    <!--<logLevel>off</logLevel>-->
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>${maven.failsafe.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                        </goals>
+                        <configuration>
+                            <!--<argLine>-->
+                             <!-- -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"-->
+                             <!-- -Dcucumber.options="&#45;&#45;plugin io.qameta.allure.cucumberjvm.AllureCucumberJvm"-->
+                            <!--</argLine>-->
+                            <!--<forkCount>2</forkCount>-->
+                            <threadCount>4</threadCount>
+                            <perCoreThreadCount>true</perCoreThreadCount>
+                        </configuration>
+                    </execution>
+                </executions>
+                <!--<dependencies>-->
+                    <!--<dependency>-->
+                        <!--<groupId>org.aspectj</groupId>-->
+                        <!--<artifactId>aspectjweaver</artifactId>-->
+                        <!--<version>${aspectj.version}</version>-->
+                    <!--</dependency>-->
+                <!--</dependencies>-->
+            </plugin>
+
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>6</source>
-                    <target>6</target>
+                    <source>8</source>
+                    <target>8</target>
                 </configuration>
             </plugin>
         </plugins>

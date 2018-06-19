@@ -12,14 +12,14 @@ import java.util.List;
 
 public class WebElementAdaptee {
     WebDriver driver;
-
+    private final long explicitlyTimeout = Long.valueOf(EnvironmentProperties.getProperty("explicitly.timeout"));
 
     public WebElementAdaptee(WebDriver driver) {
         this.driver = driver;
     }
 
     public void click(WebElement element) {
-        new WebDriverWait(driver, 10).until(ExpectedConditions.elementToBeClickable(element));
+        new WebDriverWait(driver, explicitlyTimeout).until(ExpectedConditions.elementToBeClickable(element));
         element.click();
     }
 

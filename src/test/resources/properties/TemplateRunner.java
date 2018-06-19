@@ -6,10 +6,9 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = "src/test/resources/features",
         dryRun = false, //запусе туестов без имплементированных
-        monochrome = true,
-        tags = {"@login"}
-//        ,plugin = {"io.qameta.allure.cucumberjvm.AllureCucumberJvm"}
+        monochrome = true
+    //    tags = {"~@ignore, @InDev"}
 
 )
-public class TestRunner {
+public class TemplateRunner {
 }

@@ -7,7 +7,7 @@ import driver.configuration.WrapperWebDriver;
 public class LoginPage extends BasePage {
 
     public LoginPage() {
-        super((WrapperWebDriver) DriverHolder.getInstance());
+        super(DriverHolder.getInstance());
     }
 
     public LoginPage open() {

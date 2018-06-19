@@ -14,11 +14,11 @@ import java.util.List;
 
 public class ElementImpl extends BasePage implements Element {
 
-    private final long TIMEOUT = Long.valueOf(EnvironmentProperties.getProperty("browser.timeout.element"));
+    private final long TIMEOUT = Long.valueOf(EnvironmentProperties.getProperty("explicitly.timeout"));
     private final WebElement element;
 
     protected ElementImpl(final WebElement element) {
-        super((WrapperWebDriver) DriverHolder.getInstance());
+        super(DriverHolder.getInstance());
         this.element = element;
     }
 

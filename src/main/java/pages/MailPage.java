@@ -15,7 +15,7 @@ public class MailPage extends BasePage {
     private WebElement logoImage;
 
     public MailPage() {
-        super((WrapperWebDriver) DriverHolder.getInstance());
+        super(DriverHolder.getInstance());
     }
 
     public String getUserName() {

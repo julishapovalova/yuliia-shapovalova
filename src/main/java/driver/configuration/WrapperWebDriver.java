@@ -17,16 +17,19 @@ public class WrapperWebDriver implements WebDriver {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    WrapperWebDriver(WebDriver driver) {
+    private final long implicitlyTimeout = Long.valueOf(EnvironmentProperties.getProperty("implicitly.timeout"));
+    private final long pageLoadTimeout = Long.valueOf(EnvironmentProperties.getProperty("implicitly.timeout.pageLoad"));
+    private final long scriptTimeout = Long.valueOf(EnvironmentProperties.getProperty("implicitly.timeout.script"));
+    private final long explicitlyTimeout = Long.valueOf(EnvironmentProperties.getProperty("explicitly.timeout"));
+
+
+    public WrapperWebDriver(WebDriver driver) {
         this.driver = driver;
 
-        long implicitlyWait = Long.valueOf(EnvironmentProperties.getProperty("implicitly_Wait_FIREFOX"));
-        long pageLoadTimeout = Long.valueOf(EnvironmentProperties.getProperty("browser.timeout.pageLoadTimeout"));
-
-        wait = new WebDriverWait(this.driver, Long.valueOf(EnvironmentProperties.getProperty("implicitly_Wait_FIREFOX")));
+        wait = new WebDriverWait(this.driver, explicitlyTimeout);
+        driver.manage().timeouts().implicitlyWait(implicitlyTimeout, TimeUnit.SECONDS);
         driver.manage().timeouts().pageLoadTimeout(pageLoadTimeout, TimeUnit.SECONDS);
-        driver.manage().timeouts().pageLoadTimeout(implicitlyWait, TimeUnit.SECONDS);
-        driver.manage().timeouts().pageLoadTimeout(implicitlyWait, TimeUnit.SECONDS);
+        driver.manage().timeouts().setScriptTimeout(scriptTimeout, TimeUnit.SECONDS);
 
     }
 

@@ -1,11 +1,11 @@
 package pages;
 
 import driver.configuration.DriverHolder;
+import driver.configuration.WrapperWebDriver;
 import driver.propeprties.EnvironmentProperties;
-import driver.configuration.*;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import pages.elements.Button;
 import pages.elements.ButtonImpl;
 import pages.elements.TextBox;
@@ -30,7 +30,7 @@ public class HomePage extends BasePage {
     private WebElement usernameLabel1;
 
     public HomePage() {
-        super((WrapperWebDriver) DriverHolder.getInstance());
+        super( DriverHolder.getInstance());
     }
 
     public MailPage login() {
@@ -40,9 +40,6 @@ public class HomePage extends BasePage {
         wrappedEmailInput.sendKeys(EnvironmentProperties.getProperty("email"));
         wrappedPasswordInput.sendKeys(EnvironmentProperties.getProperty("password"));
         wrappedLoginButton.click();
-//        emailInput.sendKeys(EnvironmentProperties.getProperty("email"));
-//        passwordInput.sendKeys(EnvironmentProperties.getProperty("password"));
-//        loginButton.click();
         return new MailPage();
     }
 
