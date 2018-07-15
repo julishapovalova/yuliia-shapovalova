@@ -11,6 +11,8 @@ import pages.elements.ButtonImpl;
 import pages.elements.TextBox;
 import pages.elements.TextBoxImpl;
 
+import java.util.HashMap;
+
 public class HomePage extends BasePage {
 
     final static String URL = EnvironmentProperties.getProperty("URL");
@@ -49,6 +51,7 @@ public class HomePage extends BasePage {
 
     public static HomePage open() {
         DriverHolder.getInstance().get(URL);
+        HashMap<Integer, Boolean> integerBooleanHashMap;
         return new HomePage();
     }
 }

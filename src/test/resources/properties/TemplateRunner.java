@@ -6,9 +6,11 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = "src/test/resources/features",
         dryRun = false, //запусе туестов без имплементированных
-        monochrome = true
+        monochrome = true,
+        plugin = {"json:target/cucumber-report/1.json"}
     //    tags = {"~@ignore, @InDev"}
 
 )
 public class TemplateRunner {
+    Object
 }
